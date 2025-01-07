@@ -6,19 +6,20 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 1rem 2rem;
     background-color: #e5e4e3;
     box-sizing: border-box;
     position: relative;
     z-index: 2; /* Ensures navbar stays above blurred content */
+    
 }
 
 .navbar-brand {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
+
+    
 }
 
 .navbar h2 {
@@ -100,8 +101,8 @@
 /* Desktop Styles: Make the menu visible by default and aligned to the right */
 @media (min-width: 769px) {
     .menu {
+        margin-right: 4rem;
         position: static;
-        flex-direction: row;
         gap: 2rem;
         width: auto;
         height: auto;
@@ -111,5 +112,6 @@
         opacity: 1;           /* Always visible */
         transform: none;      /* Remove the translateY offset */
         pointer-events: auto; /* Enable pointer events */
+        text-align: right;
     }
 }

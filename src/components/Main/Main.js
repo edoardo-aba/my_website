@@ -9,7 +9,6 @@ const Main = () => {
                 Edoardo Ababei
             </h1>
             <div className='Software-developer'>
-                
                 <h2>
                     Software Developer
                 </h2>
