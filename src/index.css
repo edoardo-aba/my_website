@@ -4,7 +4,8 @@ html, body {
   height: 100%;
   font-family: 'Arial', sans-serif;
   scroll-behavior: smooth; 
-  background-color: #D4fecc;
+  background-color: #e5e4e3;
+  color: #212427;
 }
 
 * {
