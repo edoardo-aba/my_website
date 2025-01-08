@@ -1,15 +1,16 @@
 import React from 'react';
-import './Main.css'; // Ensure you import the CSS file for styling
+import './Main.css';
+import gifImage from '../../images/1.gif'; // Importing the image
 
 const Main = () => {
-    return (   
+    return (
         <section className="main-section">
-            <div className="left-container">
+            <div className="name-container">
+                <img src={gifImage} alt="Typing animation" />
+            </div>
+            <div className="software-developer-container">
                 <h2 className="software-developer">Software</h2>
                 <h2 className="software-developer">Developer</h2>
-            </div>
-            <div className="right-container">
-                <h1 className="name">Edoardo Ababei</h1>
             </div>
         </section>
     );

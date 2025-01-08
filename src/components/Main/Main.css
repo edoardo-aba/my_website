@@ -1,110 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-/* 
-  Subtract the navbar height from 100vh:
-  - Default: 130px on desktop => calc(100vh - 130px)
-  - On mobile: 30px => calc(100vh - 30px)
-*/
 .main-section {
-    height: calc(100vh - 130px);
+    height: calc(100vh - 110px);
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    margin-left: 4rem;
-    margin-right: 4rem;
-
-    /* Fade-in animation */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 3rem;
     opacity: 0;
     animation: fadeIn 2s ease-out forwards;
 }
 
 /* When the navbar shrinks to 30px at max-width: 768px, 
-   update .main-section to subtract 30px.
-*/
+   update .main-section to subtract 30px. */
 @media (max-width: 768px) {
     .main-section {
-        height: calc(100vh - 30px);
-        margin-left: 1rem; 
-        margin-right: 1rem;
+        height: calc(100vh - 100px);
     }
 }
 
-.left-container,
-.right-container {
-    flex: 1; 
+.name-container {
+    height: 48%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between; 
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 3rem;
+    
 }
 
-.left-container {
-    justify-content: flex-end; 
-    align-items: flex-start;
-}
-
-.right-container {
-    justify-content: flex-start; 
-    align-items: flex-end;
+.name-container img{
+    width: 100px;
 }
 
 /* Text styling */
-.software-developer {
-    font-size: 9vw;
-    font-family: Arial, sans-serif;
-    margin: 0;
+
+
+.software-developer-container {
+    height: 48%;
+    width: 100%;
     display: flex;
+    justify-content: center;
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content:end;
+    align-items: flex-start;
 }
 
-.name {
-    font-family: "Shadows Into Light", serif;
-    font-size: 7vw;
+.software-developer{
+    font-size: clamp(6vh, 9vw, 12vw);
+    font-family: "VT323", serif;
     margin: 0;
+    
 }
 
-/* Media Queries for progressive scaling */
-@media (max-width: 1200px) {
-    .software-developer {
-        font-size: 8rem;
-    }
-    .name {
-        font-size: 8rem;
-    }
-}
 
-@media (max-width: 992px) {
-    .software-developer {
-        font-size: 6rem;
-    }
-    .name {
-        font-size: 6rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .software-developer {
-        font-size: 4rem;
-    }
-    .name {
-        font-size: 4rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .software-developer {
-        font-size: 3rem;
-    }
-    .name {
-        font-size: 3rem;
-    }
-}
 
 /* Fade-in animation */
 @keyframes fadeIn {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
