@@ -11,7 +11,7 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-brand">
-                <h2>edoardoababe2003@gmail.com</h2>
+                <h2>edoardoababei2003@gmail.com</h2>
                 <button className="menu-toggle" onClick={toggleMenu}>
                     ☰
                 </button>

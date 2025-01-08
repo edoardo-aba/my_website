@@ -3,17 +3,15 @@ import './Main.css'; // Ensure you import the CSS file for styling
 
 const Main = () => {
     return (   
-
         <section className='main-section'>
-            <h1>
-                Edoardo Ababei
-            </h1>
-            <div className='Software-developer'>
-                <h2>
-                    Software Developer
-                </h2>
+            <div className='left-container'>
+                <h2 className='software-developer'>Software</h2>
+                <h2 className='software-developer'>Developer</h2>
+
             </div>
-            
+            <div className='right-container'>
+                <h1 className='name'>Edoardo Ababei</h1>
+            </div>
         </section>
     );
 };

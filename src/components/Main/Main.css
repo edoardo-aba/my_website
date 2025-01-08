@@ -1,26 +1,97 @@
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
 
 .main-section {
+
     display: flex;
-    justify-content: center;
+    height: 100vh; /* Occupy the full viewport height */
+    width: auto;
+    justify-content: space-between;
+    align-items: stretch; /* Stretch children vertically */
     opacity: 0;
     animation: fadeIn 2s ease-out forwards;
-    height: fit-content;
+    box-sizing: border-box; /* Ensure padding doesn't add extra size */
+    margin-left: 4rem; /* Remove the large margin that caused extra scrolling */
+    margin-right: 4rem;
 }
 
-.main-section h1 {
+.left-container,
+.right-container {
+    flex: 1; /* Divide space equally between left and right */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensure content fits within the viewport */
+}
+
+.left-container {
+    justify-content: flex-end; /* Align content to the bottom */
+    align-items: flex-start;
+}
+
+.right-container {
+    justify-content: flex-start; /* Align content to the top */
+    align-items: flex-end;
+}
+
+.software-developer {
+    font-size: 9vw;
+    font-family: Arial, sans-serif; /* Use a contrasting font if desired */
+    margin: 0;
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+
+
+.name {
     font-family: "Shadows Into Light", serif;
-    font-size: 100px;
+    font-size: 7vw;
     margin: 0;
 }
 
+/* Media Queries for progressive scaling */
+@media (max-width: 1200px) {
+    .software-developer {
+        font-size: 8rem;
+    }
+    .name {
+        font-size: 8rem;
+    }
+}
 
+@media (max-width: 992px) {
+    .software-developer {
+        font-size: 6rem;
+    }
+    .name {
+        font-size: 6rem;
+    }
+    
+}
+
+@media (max-width: 768px) {
+    .software-developer {
+        font-size: 4rem;
+    }
+    .name {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .software-developer {
+        font-size: 3rem;
+    }
+    .name {
+        font-size: 3rem;
+    }
+}
+
+/* Fade-in animation */
 @keyframes fadeIn {
     0% {
         opacity: 0;
     }
-
-    100%{
+    100% {
         opacity: 1;
     }
 }

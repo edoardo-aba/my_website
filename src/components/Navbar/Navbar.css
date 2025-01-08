@@ -3,6 +3,7 @@
 .navbar {
     margin-top: 2rem;
     font-family: "Azeret Mono", sans-serif;
+    font-weight: 100 ;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -18,8 +19,6 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-
-    
 }
 
 .navbar h2 {
