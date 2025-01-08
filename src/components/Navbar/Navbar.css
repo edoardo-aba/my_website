@@ -1,18 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Azeret+Mono:ital,wght@0,100..900;1,100..900&family=Water+Brush&display=swap');
 
+/* Navbar container */
 .navbar {
-    margin-top: 2rem;
     font-family: "Azeret Mono", sans-serif;
-    font-weight: 100 ;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 2rem;
     background-color: #e5e4e3;
     box-sizing: border-box;
     position: relative;
-    z-index: 2; /* Ensures navbar stays above blurred content */
-    
+    z-index: 2;
+
+    /* Default: Desktop height */
+    height: 130px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+/* Mobile: height = 30px at max-width: 768px */
+@media (max-width: 768px) {
+    .navbar {
+        height: 30px;
+        padding: 0.5rem 1rem; /* Adjust if desired */
+    }
 }
 
 .navbar-brand {
@@ -26,7 +36,7 @@
     margin: 0;
 }
 
-/* Responsive Font Size for h2 */
+/* Responsive font for h2 */
 @media (max-width: 768px) {
     .navbar h2 {
         font-size: 1.2rem; 
@@ -39,78 +49,76 @@
     }
 }
 
+/* Hamburger (menu-toggle) hidden by default on desktop */
 .menu-toggle {
     background: none;
     border: none;
     color: #212427;
     font-size: 1.5rem;
     cursor: pointer;
-    display: none;
-    z-index: 3; /* Keep the toggle above the menu */
+    display: none;  /* Shown only on mobile */
+    z-index: 3; 
 }
 
-/* Menu Styles */
 .menu {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
     margin: 0;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(229, 228, 227, 0.8); /* Semi-transparent background */
-    backdrop-filter: blur(15px); /* Apply blur effect to the entire screen */
-    opacity: 0;
-    transform: translateY(-20px);
-    pointer-events: none;
-    z-index: 1; /* Ensures menu stays above the blurred background */
-    color: #212427;
+    padding: 0;
+
+    /* 
+      By default, hide for mobile (we will reveal it 
+      when the .open class is present).
+    */
+    display: none;
+
+    /* 
+      Vertical layout for both desktop & mobile
+      (the difference is just "visible or hidden").
+    */
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.menu.open {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: all;
-}
-
+/* Menu items */
 .menu li {
     cursor: pointer;
     transition: color 0.3s ease;
     font-size: 1.2rem;
-    color: #212427; /* Ensures menu items are readable */
+    color: #212427;
     font-weight: bold;
+    padding: 0.5rem;
 }
 
 .menu li:hover {
     color: #007bff;
 }
 
-/* Mobile Styles */
+/* Show toggle & hide menu by default on mobile */
 @media (max-width: 768px) {
     .menu-toggle {
-        display: block; /* Show the toggle button on mobile */
+        display: block; /* hamburger visible on mobile */
+    }
+
+    /* If .open is applied, show the menu on mobile */
+    .menu.open {
+        display: flex;
+        position: absolute;
+        top: 30px;   /* aligns right below the 30px navbar */
+        right: 0;
+        background-color: #e5e4e3;
+        width: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
+        /* Or you can do a fancy slide-down or fade-in effect */
     }
 }
 
-/* Desktop Styles: Make the menu visible by default and aligned to the right */
+/* On desktop (min-width: 769px), show the menu by default and hide the toggle */
 @media (min-width: 769px) {
     .menu {
-        margin-right: 4rem;
-        position: static;
-        gap: 2rem;
-        width: auto;
-        height: auto;
-        padding: 0;
-        background: transparent;
-        backdrop-filter: none;
-        opacity: 1;           /* Always visible */
-        transform: none;      /* Remove the translateY offset */
-        pointer-events: auto; /* Enable pointer events */
-        text-align: right;
+        display: flex;   /* visible on desktop */
+    }
+    .menu-toggle {
+        display: none;
     }
 }
