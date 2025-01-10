@@ -1,15 +1,21 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar';
 import Main from './components/Main/Main';
-import Navbar from './components/Navbar/Navbar'; 
+import Work from './components/Work/Work';
+import Contact from './components/Contact/Contact';
 
-function App() {
+const App = () => {
   return (
-    <>
-      <Navbar /> {/* Add Navbar here */}
-      <Main /> {/* Keep Main as the main content */}
-    </>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/work" element={<Work />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
