@@ -26,11 +26,11 @@
     display: flex;
     justify-content: flex-end;
     align-items:end;
-    padding-right: 3rem;
     
 }
 
 .name-container img{
+    margin-right: 5rem;
     width: clamp(300px, 40%, 60%);
 }
 
@@ -67,6 +67,9 @@
     .name-container img{
         width: clamp(300px, 50%, 60%);
     }
+    .software-developer{
+        font-size: 12vw;
+    }
 }
 
 
@@ -77,6 +80,17 @@
         align-items: center;
         justify-content: center;
         padding: 0;
+    }
+
+    .name-container img{
+        margin: 0;
+    }
+
+    .software-developer{
+        font-size: 12vw;
+    }
+    .software-developer{
+        font-size: 17vw;
     }
 }
 

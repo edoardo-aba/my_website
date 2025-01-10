@@ -19,9 +19,9 @@ const Navbar = () => {
       </div>
 
       <ul className={`menu ${isOpen ? 'open' : ''}`}>
-        <li>Index</li>
-        <li>Work</li>
-        <li>Contact</li>
+        <li>[Index]</li>
+        <li>[Work]</li>
+        <li>[Contact]</li>
       </ul>
     </nav>
   );
