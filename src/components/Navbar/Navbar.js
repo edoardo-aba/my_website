@@ -18,7 +18,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Menu (vertical layout). On mobile, it's hidden by default until toggled. */}
       <ul className={`menu ${isOpen ? 'open' : ''}`}>
         <li>Index</li>
         <li>Work</li>

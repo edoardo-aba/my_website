@@ -1,6 +1,6 @@
 import React from 'react';
 import './Main.css';
-import gifImage from '../../images/1.gif'; // Importing the image
+import gifImage from '../../images/name.gif'; // Importing the image
 
 const Main = () => {
     return (
