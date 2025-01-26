@@ -1,0 +1,15 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  scroll-behavior: smooth; 
+  background-size: cover;
+  background-position: center;
+  color: #FFEB00;
+  background-color: blue;
+}
+
+* {
+  box-sizing: border-box; 
+}

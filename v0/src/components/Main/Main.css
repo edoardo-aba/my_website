@@ -70,11 +70,22 @@
     .software-developer{
         font-size: 12vw;
     }
+    .name-container img{
+        margin: 0;
+        padding: 0;
+        width: 50vw;
+    }
+}
+
+@media(max-width:1080px){
+    .name-container{
+        height: 48%;
+    }
 }
 
 
 
-@media  (max-width: 780px) {
+@media  (max-width: 730px) {
     /* Add your styles here */
     .name-container{
         align-items: center;
