@@ -51,11 +51,15 @@
 }
 
 .social-icons a:nth-child(2):hover {
-    color: #333; /* GitHub black */
+    color: purple; /* GitHub black */
 }
 
 .social-icons a:nth-child(3):hover {
-    color: #e1306c; /* Instagram pink */
+    color: RED; /* Instagram pink */
+}
+
+.social-icons a:nth-child(4):hover {
+    color: green; /* Instagram pink */
 }
 
 @media (max-width: 768px) {
