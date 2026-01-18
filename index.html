@@ -15,6 +15,7 @@
             --sidebar-bg: linear-gradient(to bottom, #7DA2CE 0%, #6375d6 100%);
             --xp-beige: #ECE9D8;
             --font-main: 'Tahoma', 'Verdana', sans-serif;
+            --mw-grey: #c0c0c0; /* Minesweeper Grey */
         }
 
         /* RESET & BASE */
@@ -31,6 +32,7 @@
             height: 100vh;
             width: 100vw;
             user-select: none;
+            -webkit-user-select: none;
         }
 
         /* --- DESKTOP ICONS --- */
@@ -126,7 +128,7 @@
             flex-grow: 1;
             height: calc(100% - 30px);
             overflow: hidden;
-            background-color: white; /* Restored to White */
+            background-color: white; 
         }
 
         /* SIDEBAR (The Blue "Common Tasks" Bar) */
@@ -182,11 +184,10 @@
             flex-grow: 1;
             padding: 0;
             overflow-y: auto;
-            background-color: white; /* Clean White Background */
+            background-color: white; 
         }
 
         /* --- PROFILE HEADER --- */
-        /* Removed Beige, switched to clean White/Transparent style */
         .profile-header {
             padding: 20px;
             border-bottom: 1px solid #eee;
@@ -264,6 +265,101 @@
         }
         .popup-body ul { margin: 10px 0; padding-left: 20px; }
 
+        /* --- MINESWEEPER STYLES --- */
+        #minesweeper-window {
+            width: auto;
+            background: var(--mw-grey);
+            user-select: none;
+            /* DEFAULT DESKTOP POSITION */
+            top: 80px; 
+            left: 300px;
+        }
+
+        .mw-container {
+            padding: 6px;
+            background: var(--mw-grey);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        /* Bevel Borders */
+        .bevel-down { border: 2px solid; border-color: #808080 white white #808080; }
+        .bevel-up { border: 2px solid; border-color: white #808080 #808080 white; }
+        
+        /* Game Header */
+        .mw-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 7px;
+            background: var(--mw-grey);
+            margin-bottom: 2px;
+        }
+        
+        .mw-counter {
+            background: black;
+            color: red;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 22px;
+            padding: 2px;
+            width: 54px;
+            text-align: center;
+            line-height: 22px;
+            letter-spacing: 1px;
+        }
+        .mw-face {
+            width: 26px; height: 26px;
+            background: var(--mw-grey);
+            font-size: 18px;
+            text-align: center;
+            line-height: 22px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .mw-face:active { border-color: #808080 white white #808080; transform: translateY(1px); }
+
+        /* The Grid */
+        .mw-grid {
+            display: grid;
+            grid-template-columns: repeat(9, 25px); /* 9x9 Grid */
+            background: #808080; /* Border color between cells */
+        }
+        .mw-cell {
+            width: 25px; height: 25px;
+            background: var(--mw-grey);
+            border: 2px solid;
+            border-color: white #808080 #808080 white;
+            font-size: 16px;
+            font-weight: 900;
+            text-align: center;
+            line-height: 22px;
+            cursor: default;
+            font-family: 'Verdana', sans-serif;
+        }
+        .mw-cell:active { border: 0; padding: 2px 0 0 2px; border: 1px solid #808080; } /* Press effect */
+        
+        .mw-cell.revealed {
+            border: 1px solid #808080; /* Flat look */
+            background: #c0c0c0;
+            padding: 0;
+        }
+        .mw-cell.mine { background: red; }
+        .mw-cell.flagged { color: red; }
+        
+        /* Numbers colors */
+        .c1 { color: blue; } .c2 { color: green; } .c3 { color: red; } .c4 { color: navy; }
+        .c5 { color: maroon; } .c6 { color: teal; } .c7 { color: black; } .c8 { color: gray; }
+
+        /* Mobile Help Text - Hidden on Desktop */
+        .mw-mobile-help {
+            display: none; 
+            text-align: center; 
+            font-size: 10px; 
+            margin-top: 5px; 
+            color: #555;
+        }
+
         /* --- TASKBAR --- */
         .taskbar {
             position: fixed; bottom: 0; left: 0;
@@ -308,30 +404,37 @@
             #main-cv-window {
                 width: 96vw !important;
                 left: 2vw !important;
-
-                /* Positioning: Start lower to show icons, but end above taskbar */
                 top: 100px !important;
                 height: 65vh !important;
-
                 margin: 0 !important;
             }
 
-            /* Enable Sidebar on Mobile but style it smaller or at top?
-               User asked for "Details section on the left".
-               To avoid breaking layout, we hide the main sidebar but
-               SHOW a "Mobile Details" section at top of content */
             .xp-sidebar { display: none; }
-
             #mobile-details-bar { display: block !important; }
-
             .popup { width: 92% !important; left: 4% !important; top: 80px !important; }
 
             /* Ensure text is readable */
             .text-block { font-size: 13px; }
             .job-info h3 { font-size: 14px; }
+            
+            /* Minesweeper Mobile - FIXED CENTERING METHOD */
+            #minesweeper-window {
+                 top: 100px !important;
+                 /* Use left/right: 0 and margin: auto to center WITHOUT transform */
+                 /* This prevents conflict with pop-in animation */
+                 left: 0 !important;
+                 right: 0 !important;
+                 margin: 0 auto !important;
+                 width: fit-content !important;
+                 width: -moz-fit-content !important; /* Firefox fallback */
+            }
+            .mw-cell { width: 32px; height: 32px; } /* Larger touch targets */
+            .mw-grid { grid-template-columns: repeat(9, 32px); }
+
+            /* Show Mobile Help Text */
+            .mw-mobile-help { display: block; }
         }
 
-        /* Helper to show details on mobile at top of content */
         #mobile-details-bar {
             display: none;
             background: #eef3ff;
@@ -349,6 +452,12 @@
             <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="CV">
             Edoardo
         </div>
+        
+        <div class="icon" onclick="initMinesweeper(); openWindow('minesweeper-window')">
+            <img src="https://win98icons.alexmeub.com/icons/png/game_mine_1-0.png" alt="Minesweeper">
+            Minesweeper
+        </div>
+
         <div class="icon" onclick="openWindow('contact-popup')">
             <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-4.png" alt="Contact">
             Contact
@@ -391,10 +500,7 @@
                             Email Me
                         </div>
                         <div class="sidebar-action">
-                            <a href="https://www.linkedin.com/in/edoardo-ababei-058b7326b/" 
-                             target="_blank" 
-                             rel="noopener noreferrer" 
-                             class="sidebar-action">
+                            <a href="https://www.linkedin.com/in/edoardo-ababei-058b7326b/" target="_blank" rel="noopener noreferrer" class="sidebar-action">
                                 <img src="https://win98icons.alexmeub.com/icons/png/ac_plug-0.png">
                                 LinkedIn Me
                             </a>
@@ -407,27 +513,19 @@
                         Details <span class="sidebar-toggle">^</span>
                     </div>
                     <div class="sidebar-body" style="color: black;">
-                        <b>Blog:</b><br>
-                        asap<br><br>
-                        <b>Date Modified:</b><br>
-                        5 mins ago<br><br>
+                        <b>Blog:</b><br>asap<br><br>
+                        <b>Date Modified:</b><br>5 mins ago<br><br>
                         <b>Size:</b> 1.2 MB<br>
                         <b>Author:</b> Edoardo
                     </div>
                 </div>
-
                 <div class="sidebar-box">
-                    <div class="sidebar-header">
-                        Certifications <span class="sidebar-toggle">^</span>
-                    </div>
-                    <div class="sidebar-body" style="color: black;">
-                        <b>Working on a DevOps one</b><br>
-                    </div>
+                    <div class="sidebar-header">Certifications <span class="sidebar-toggle">^</span></div>
+                    <div class="sidebar-body" style="color: black;"><b>Working on a DevOps one</b><br></div>
                 </div>
             </div>
 
             <div class="main-pane">
-
                <div id="mobile-details-bar">
                     <b>File Tasks:</b> 
                     <a href="./assets/CV_Edoardo_Ababei.pdf" download="CV_Edoardo_Ababei.pdf">Download CV</a> | 
@@ -435,7 +533,7 @@
                 </div>
 
                 <div class="profile-header">
-                    <img src="https://preview.redd.it/do-you-have-goofy-pics-of-your-pretty-cats-v0-51t4e3gnyvib1.jpg?auto=webp&s=27b628d946d585f415de91edb250544ccff0d02c  " alt="Edoardo" class="profile-pic">
+                    <img src="https://preview.redd.it/do-you-have-goofy-pics-of-your-pretty-cats-v0-51t4e3gnyvib1.jpg?auto=webp&s=27b628d946d585f415de91edb250544ccff0d02c" alt="Edoardo" class="profile-pic">
                     <div class="profile-info">
                         <h1>Edoardo Ababei</h1>
                         <h2>Software Developer | 22 Years Old</h2>
@@ -443,7 +541,6 @@
                 </div>
 
                 <div class="content-area">
-
                     <div class="section-title"> </div>
                         <p class="text-block"> 
                             Hi, I’m Edoardo currently in Lugano, Switzerland. I hate text generated by LLMs. I’m passionate about technology, finance, books, and cuisine. In my free time, when I’m not working/studying/cooking/at the gym, I enjoy the people I spend my time with. 
@@ -470,7 +567,6 @@
                     </div>
 
                     <div class="section-title">Work Experience</div>
-
                     <div class="job-card" onclick="openWindow('teq-popup')">
                         <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" class="folder-icon">
                         <div class="job-info">
@@ -479,7 +575,6 @@
                             <span class="view-link">Click for details...</span>
                         </div>
                     </div>
-
                     <div class="job-card" onclick="openWindow('webchip-popup')">
                         <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" class="folder-icon">
                         <div class="job-info">
@@ -488,7 +583,6 @@
                             <span class="view-link">Click for details...</span>
                         </div>
                     </div>
-
                     <div class="job-card" onclick="openWindow('oikos-popup')">
                         <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" class="folder-icon">
                         <div class="job-info">
@@ -497,7 +591,6 @@
                             <span class="view-link">Click for details...</span>
                         </div>
                     </div>
-
                     <div class="job-card" onclick="openWindow('almec-popup')">
                         <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" class="folder-icon">
                         <div class="job-info">
@@ -509,30 +602,36 @@
 
                     <div class="section-title">Skills & Technologies</div>
                     <table class="xp-table">
-                        <tr>
-                            <td class="xp-head">Languages</td>
-                            <td>Java, TypeScript, Python, HTML, CSS</td>
-                        </tr>
-                        <tr>
-                            <td class="xp-head">Frameworks</td>
-                            <td>React, Angular</td>
-                        </tr>
-                        <tr>
-                            <td class="xp-head">Backend</td>
-                            <td>Node, SpringBoot, Flask</td>
-                        </tr>
-                        <tr>
-                            <td class="xp-head">DevOps</td>
-                            <td>GitLab, Docker, Kubernetes, CI/CD</td>
-                        </tr>
-                        <tr>
-                            <td class="xp-head">Databases</td>
-                            <td>MongoDB, PostgreSQL, Redis</td>
-                        </tr>
-
+                        <tr><td class="xp-head">Languages</td><td>Java, TypeScript, Python, HTML, CSS</td></tr>
+                        <tr><td class="xp-head">Frameworks</td><td>React, Angular</td></tr>
+                        <tr><td class="xp-head">Backend</td><td>Node, SpringBoot, Flask</td></tr>
+                        <tr><td class="xp-head">DevOps</td><td>GitLab, Docker, Kubernetes, CI/CD</td></tr>
+                        <tr><td class="xp-head">Databases</td><td>MongoDB, PostgreSQL, Redis</td></tr>
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="minesweeper-window" class="window pop-in">
+        <div class="title-bar" onmousedown="startDrag(event, 'minesweeper-window')">
+            <span><img src="https://win98icons.alexmeub.com/icons/png/game_mine_1-0.png"> Minesweeper</span>
+            <div class="title-bar-controls">
+                <button onclick="closeWindow('minesweeper-window')">X</button>
+            </div>
+        </div>
+        
+        <div class="mw-container">
+            <div class="mw-header bevel-down">
+                <div class="mw-counter bevel-down" id="mw-mines-count">010</div>
+                <button class="mw-face bevel-up" id="mw-face" onclick="initMinesweeper()">🙂</button>
+                <div class="mw-counter bevel-down" id="mw-timer">000</div>
+            </div>
+            
+            <div class="mw-grid bevel-down" id="mw-grid">
+                </div>
+            
+            <div class="mw-mobile-help">Long Press to Flag</div>
         </div>
     </div>
 
@@ -622,7 +721,6 @@
                 mainWin.style.left = (w/2 - 450) + 'px';
                 mainWin.style.top = '50px';
             }
-            // Mobile handled by CSS
         };
 
         // CLOCK
@@ -650,7 +748,6 @@
         let diffX = 0, diffY = 0;
 
         function startDrag(e, id) {
-            // Prevent dragging on mobile to avoid breaking layout
             if(window.innerWidth <= 768) return;
             if(e.button !== 0) return;
 
@@ -676,6 +773,203 @@
             dragItem = null;
             document.removeEventListener('mousemove', onDrag);
             document.removeEventListener('mouseup', stopDrag);
+        }
+
+        /* --- MINESWEEPER LOGIC --- */
+        const mwRows = 9;
+        const mwCols = 9;
+        const mwMinesCount = 10;
+        let mwGrid = [];
+        let mwGameOver = false;
+        let mwTimer = 0;
+        let mwTimerInterval = null;
+        let mwFlags = 0;
+
+        function initMinesweeper() {
+            const gridEl = document.getElementById('mw-grid');
+            gridEl.innerHTML = '';
+            mwGrid = [];
+            mwGameOver = false;
+            mwFlags = 0;
+            mwTimer = 0;
+            stopTimer();
+            document.getElementById('mw-face').textContent = '🙂';
+            document.getElementById('mw-timer').textContent = '000';
+            updateMineCounter();
+
+            // Create Grid
+            for(let r=0; r<mwRows; r++) {
+                let row = [];
+                for(let c=0; c<mwCols; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'mw-cell bevel-up';
+                    cell.dataset.r = r;
+                    cell.dataset.c = c;
+                    
+                    // Left Click (Reveal)
+                    cell.onclick = () => clickCell(r, c);
+                    
+                    // Right Click / Long Press (Flag)
+                    cell.oncontextmenu = (e) => {
+                        e.preventDefault();
+                        flagCell(r, c);
+                        return false;
+                    };
+
+                    gridEl.appendChild(cell);
+                    row.push({ 
+                        element: cell, 
+                        isMine: false, 
+                        revealed: false, 
+                        flagged: false, 
+                        neighbors: 0 
+                    });
+                }
+                mwGrid.push(row);
+            }
+
+            // Place Mines Randomly
+            let minesPlaced = 0;
+            while(minesPlaced < mwMinesCount) {
+                const r = Math.floor(Math.random() * mwRows);
+                const c = Math.floor(Math.random() * mwCols);
+                if(!mwGrid[r][c].isMine) {
+                    mwGrid[r][c].isMine = true;
+                    minesPlaced++;
+                }
+            }
+
+            // Calculate Neighbors
+            for(let r=0; r<mwRows; r++) {
+                for(let c=0; c<mwCols; c++) {
+                    if(mwGrid[r][c].isMine) continue;
+                    let count = 0;
+                    for(let i=-1; i<=1; i++) {
+                        for(let j=-1; j<=1; j++) {
+                            const nr = r+i, nc = c+j;
+                            if(nr>=0 && nr<mwRows && nc>=0 && nc<mwCols && mwGrid[nr][nc].isMine) {
+                                count++;
+                            }
+                        }
+                    }
+                    mwGrid[r][c].neighbors = count;
+                }
+            }
+        }
+
+        function startTimer() {
+            if(mwTimerInterval) return;
+            mwTimerInterval = setInterval(() => {
+                mwTimer++;
+                document.getElementById('mw-timer').textContent = String(mwTimer).padStart(3, '0');
+                if(mwTimer >= 999) stopTimer();
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(mwTimerInterval);
+            mwTimerInterval = null;
+        }
+
+        function clickCell(r, c) {
+            if(mwGameOver || mwGrid[r][c].flagged || mwGrid[r][c].revealed) return;
+            
+            // Start timer on first click
+            startTimer();
+
+            const cellData = mwGrid[r][c];
+            
+            if(cellData.isMine) {
+                // GAME OVER
+                mwGameOver = true;
+                stopTimer();
+                document.getElementById('mw-face').textContent = '😵';
+                revealAllMines();
+                cellData.element.style.backgroundColor = 'red';
+            } else {
+                revealCell(r, c);
+                checkWin();
+            }
+        }
+
+        function revealCell(r, c) {
+            if(r<0 || r>=mwRows || c<0 || c>=mwCols || mwGrid[r][c].revealed || mwGrid[r][c].flagged) return;
+            
+            const cell = mwGrid[r][c];
+            cell.revealed = true;
+            cell.element.classList.add('revealed');
+            cell.element.classList.remove('bevel-up');
+
+            if(cell.neighbors > 0) {
+                cell.element.textContent = cell.neighbors;
+                cell.element.classList.add('c' + cell.neighbors);
+            } else {
+                // Flood fill for 0
+                for(let i=-1; i<=1; i++) {
+                    for(let j=-1; j<=1; j++) {
+                        revealCell(r+i, c+j);
+                    }
+                }
+            }
+        }
+
+        function flagCell(r, c) {
+            if(mwGameOver || mwGrid[r][c].revealed) return;
+            const cell = mwGrid[r][c];
+            if(cell.flagged) {
+                cell.flagged = false;
+                cell.element.textContent = '';
+                cell.element.classList.remove('flagged');
+                mwFlags--;
+            } else {
+                if(mwFlags < mwMinesCount) {
+                    cell.flagged = true;
+                    cell.element.textContent = '🚩';
+                    cell.element.classList.add('flagged');
+                    mwFlags++;
+                }
+            }
+            updateMineCounter();
+        }
+
+        function updateMineCounter() {
+            const left = mwMinesCount - mwFlags;
+            document.getElementById('mw-mines-count').textContent = String(left).padStart(3, '0');
+        }
+
+        function revealAllMines() {
+            for(let r=0; r<mwRows; r++) {
+                for(let c=0; c<mwCols; c++) {
+                    if(mwGrid[r][c].isMine) {
+                        mwGrid[r][c].element.textContent = '💣';
+                        mwGrid[r][c].element.classList.add('revealed');
+                        mwGrid[r][c].element.classList.remove('bevel-up');
+                    }
+                }
+            }
+        }
+
+        function checkWin() {
+            let revealedCount = 0;
+            for(let r=0; r<mwRows; r++) {
+                for(let c=0; c<mwCols; c++) {
+                    if(mwGrid[r][c].revealed) revealedCount++;
+                }
+            }
+            if(revealedCount === (mwRows * mwCols - mwMinesCount)) {
+                mwGameOver = true;
+                stopTimer();
+                document.getElementById('mw-face').textContent = '😎';
+                // Flag all mines visually
+                for(let r=0; r<mwRows; r++) {
+                    for(let c=0; c<mwCols; c++) {
+                        if(mwGrid[r][c].isMine) {
+                            mwGrid[r][c].element.textContent = '🚩';
+                            mwGrid[r][c].element.classList.add('flagged');
+                        }
+                    }
+                }
+            }
         }
     </script>
 </body>
