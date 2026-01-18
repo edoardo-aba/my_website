@@ -1,1 +1,682 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><title>Edoardo Ababei</title><link rel="icon" href="/5.png"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Edoardo Ababei – Software Developer & Cybersecurity Enthusiast based in Switzerland."/><meta name="keywords" content="Edoardo Ababei, Software Developer, Cybersecurity, React, Portfolio, Switzerland"/><meta name="author" content="Edoardo Ababei"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ababei.ch"/><meta property="og:title" content="Edoardo Ababei | Software Developer & Cybersecurity Enthusiast"/><meta property="og:image" content="/images/og-image.png"/><script defer="defer" src="/static/js/main.ebbf9e2c.js"></script><link href="/static/css/main.362ba49b.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Edoardo Ababei - XP </title>
+    <link rel="icon" type="image/png" href="./assets/windows-xp.png">
+    
+    <style>
+        /* --- XP SYSTEM VARIABLES --- */
+        :root {
+            --xp-blue: #245DDA;
+            --xp-bar-gradient: linear-gradient(to bottom, #245DDA 0%, #174FCE 100%);
+            --win-header: linear-gradient(to bottom, #0058EE 0%, #3593FF 4%, #288EFF 18%, #127DFF 100%);
+            --sidebar-bg: linear-gradient(to bottom, #7DA2CE 0%, #6375d6 100%);
+            --xp-beige: #ECE9D8;
+            --font-main: 'Tahoma', 'Verdana', sans-serif;
+        }
+
+        /* RESET & BASE */
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('https://external-preview.redd.it/uhq5zTcMPM3tOW_fbUz4PayDt_5pkEXdyXXoRWs3XOg.jpg?auto=webp&s=e06461124c1ccfdba7e9ece763b644ff68eeb06b') no-repeat center center fixed;
+            background-color: #0096dc;
+            background-size: cover;
+            font-family: var(--font-main);
+            overflow: hidden; /* Prevent body scroll */
+            height: 100vh;
+            width: 100vw;
+            user-select: none;
+        }
+
+        /* --- DESKTOP ICONS --- */
+        .desktop-icons {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 0;
+            flex-wrap: wrap;
+            max-height: 90vh; /* Prevent icons getting hidden */
+        }
+
+        .icon {
+            width: 70px;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .icon img {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 5px auto;
+            display: block;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5));
+        }
+
+        .icon:hover img { opacity: 0.8; }
+
+        /* --- WINDOW STYLES --- */
+        .window {
+            position: absolute;
+            background-color: white;
+            border: 3px solid #0055EA;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            box-shadow: 4px 4px 12px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            display: none;
+        }
+
+        .pop-in { animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popIn {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* MAIN WINDOW (Desktop Default) */
+        #main-cv-window {
+            width: 900px;
+            height: 80vh;
+            z-index: 10;
+        }
+
+        .title-bar {
+            background: var(--win-header);
+            padding: 5px 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            text-shadow: 1px 1px 1px black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            cursor: default;
+            flex-shrink: 0;
+            height: 30px;
+        }
+
+        .title-bar img { vertical-align: middle; margin-right: 5px; width: 16px; height: 16px; }
+
+        .title-bar-controls button {
+            width: 21px; height: 21px;
+            border: 1px solid white; border-radius: 3px;
+            background: #D74326; color: white;
+            font-weight: bold; line-height: 18px;
+            text-align: center; cursor: pointer;
+            box-shadow: inset 1px 1px 2px rgba(255,255,255,0.5);
+        }
+
+        /* --- LAYOUT SPLIT --- */
+        .window-content {
+            display: flex;
+            flex-grow: 1;
+            height: calc(100% - 30px);
+            overflow: hidden;
+            background-color: white; /* Restored to White */
+        }
+
+        /* SIDEBAR (The Blue "Common Tasks" Bar) */
+        .xp-sidebar {
+            width: 200px;
+            background: var(--sidebar-bg);
+            padding: 15px;
+            flex-shrink: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar-box {
+            background: white;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            background: linear-gradient(to right, #ffffff 0%, #c6d3f7 100%);
+            padding: 4px 10px;
+            color: #215dc6;
+            font-weight: bold;
+            font-size: 11px;
+            cursor: pointer;
+            border-bottom: 1px solid #7DA2CE;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .sidebar-toggle {
+            width: 16px; height: 16px; border: 1px solid #ccc; border-radius: 50%;
+            text-align: center; line-height: 14px; color: #666; font-size: 12px; background: white;
+        }
+
+        .sidebar-body {
+            padding: 10px;
+            font-size: 11px;
+            color: #003399;
+        }
+
+        .sidebar-action {
+            display: flex; align-items: center; gap: 6px;
+            color: #003399; text-decoration: none;
+            margin-bottom: 8px; cursor: pointer;
+        }
+        .sidebar-action:hover { text-decoration: underline; color: #D74326; }
+        .sidebar-action img { width: 16px; height: 16px; }
+
+        /* MAIN PANE (Right Side) */
+        .main-pane {
+            flex-grow: 1;
+            padding: 0;
+            overflow-y: auto;
+            background-color: white; /* Clean White Background */
+        }
+
+        /* --- PROFILE HEADER --- */
+        /* Removed Beige, switched to clean White/Transparent style */
+        .profile-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: linear-gradient(to bottom, #fff 0%, #f7f7f7 100%);
+        }
+
+        .profile-pic {
+            width: 80px; height: 80px;
+            border: 2px solid white;
+            outline: 1px solid #ccc;
+            object-fit: cover;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+
+        .profile-info h1 { margin: 0; font-size: 22px; color: #333; }
+        .profile-info h2 { margin: 5px 0 0; font-size: 13px; color: #666; font-weight: normal; }
+
+        /* --- CONTENT AREA --- */
+        .content-area { padding: 20px; }
+
+        .section-title {
+            font-size: 13px; color: #215dc6;
+            font-weight: bold;
+            margin: 25px 0 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+        .section-title:first-of-type { margin-top: 0; }
+
+        .text-block { line-height: 1.5; color: #333; font-size: 12px; margin-bottom: 15px; }
+
+        /* Job Items */
+        .job-card {
+            display: flex; gap: 10px;
+            margin-bottom: 15px; padding: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .job-card:hover {
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .folder-icon { width: 32px; height: 32px; flex-shrink: 0; }
+        .job-info h3 { margin: 0 0 3px 0; font-size: 12px; color: #333; font-weight: bold; }
+        .job-info .date { font-size: 10px; color: #888; display: block; margin-bottom: 3px; }
+        .view-link { color: #245DDA; text-decoration: underline; font-size: 10px; }
+
+        /* --- SKILLS TABLE --- */
+        .xp-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
+        .xp-table td { padding: 6px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
+        .xp-table tr:last-child td { border-bottom: none; }
+        .xp-head {
+            width: 100px;
+            font-weight: bold;
+            color: #555;
+            background: #f9f9f9;
+            border-right: 1px solid #eee;
+        }
+
+        /* --- POPUP WINDOWS --- */
+        .popup { width: 450px; z-index: 20; }
+        .popup-body {
+            padding: 15px;
+            background: #ECE9D8; /* Keep Popups Beige (Dialog style) */
+            font-size: 11px;
+            line-height: 1.5;
+            color: black;
+        }
+        .popup-body ul { margin: 10px 0; padding-left: 20px; }
+
+        /* --- TASKBAR --- */
+        .taskbar {
+            position: fixed; bottom: 0; left: 0;
+            width: 100%; height: 30px;
+            background: var(--xp-bar-gradient);
+            border-top: 1px solid #578AE0;
+            display: flex; align-items: center;
+            z-index: 99999; padding-right: 10px;
+        }
+
+        .start-btn {
+            background: linear-gradient(to bottom, #3C9E3C 0%, #1C671C 100%);
+            border-radius: 0 10px 10px 0; color: white;
+            font-style: italic; font-weight: bold; font-size: 14px;
+            padding: 3px 15px 3px 5px; margin-right: 10px;
+            box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+            cursor: pointer; display: flex; align-items: center; gap: 5px;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        }
+        .start-btn:hover { filter: brightness(1.1); }
+        .start-btn img { width: 20px; height: 20px; }
+
+        .clock {
+            margin-left: auto; background: #127DFF;
+            border: 1px solid #174FCE; border-radius: 2px;
+            padding: 2px 10px; color: white; font-size: 11px;
+            box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* --- MOBILE OPTIMIZATION --- */
+        @media (max-width: 768px) {
+            .desktop-icons {
+                flex-direction: row;
+                top: 10px; left: 10px;
+                width: 100%;
+                gap: 15px;
+            }
+            .icon { width: 65px; font-size: 10px; }
+            .icon img { width: 40px; height: 40px; }
+
+            /* Mobile Window Positioning - FIX GAP & SCROLL */
+            #main-cv-window {
+                width: 96vw !important;
+                left: 2vw !important;
+
+                /* Positioning: Start lower to show icons, but end above taskbar */
+                top: 100px !important;
+                height: 65vh !important;
+
+                margin: 0 !important;
+            }
+
+            /* Enable Sidebar on Mobile but style it smaller or at top?
+               User asked for "Details section on the left".
+               To avoid breaking layout, we hide the main sidebar but
+               SHOW a "Mobile Details" section at top of content */
+            .xp-sidebar { display: none; }
+
+            #mobile-details-bar { display: block !important; }
+
+            .popup { width: 92% !important; left: 4% !important; top: 80px !important; }
+
+            /* Ensure text is readable */
+            .text-block { font-size: 13px; }
+            .job-info h3 { font-size: 14px; }
+        }
+
+        /* Helper to show details on mobile at top of content */
+        #mobile-details-bar {
+            display: none;
+            background: #eef3ff;
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+            font-size: 11px;
+            color: #003399;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="desktop-icons">
+        <div class="icon" onclick="openWindow('main-cv-window')">
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="CV">
+            Edoardo
+        </div>
+        <div class="icon" onclick="openWindow('contact-popup')">
+            <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-4.png" alt="Contact">
+            Contact
+        </div>
+        <div class="icon">
+            <a href="https://github.com/edoardo-aba" target="_blank" style="text-decoration: none; color: white;">
+                <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="GitHub">
+                GitHub
+            </a>
+        </div>
+        <div class="icon">
+             <a href="https://www.linkedin.com/in/edoardo-ababei-058b7326b/" target="_blank" style="text-decoration: none; color: white;">
+                <img src="https://win98icons.alexmeub.com/icons/png/user_world-1.png" alt="Sites">
+                LinkedIn
+            </a>
+        </div>
+    </div>
+
+    <div id="main-cv-window" class="window pop-in">
+        <div class="title-bar" onmousedown="startDrag(event, 'main-cv-window')">
+            <span><img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-0.png"> Hello ;)</span>
+            <div class="title-bar-controls">
+                <button onclick="closeWindow('main-cv-window')">X</button>
+            </div>
+        </div>
+
+        <div class="window-content">
+            <div class="xp-sidebar">
+                <div class="sidebar-box">
+                    <div class="sidebar-header">
+                        File Tasks <span class="sidebar-toggle">^</span>
+                    </div>
+                    <div class="sidebar-body">
+                       <a href="./assets/CV_Edoardo_Ababei.pdf" download="CV_Edoardo_Ababei.pdf" class="sidebar-action">
+                            <img src="https://win98icons.alexmeub.com/icons/png/floppy_drive_5_25-2.png">
+                            Download CV
+                       </a>
+                        <div class="sidebar-action" onclick="openWindow('contact-popup')">
+                            <img src="https://win98icons.alexmeub.com/icons/png/envelope_closed-0.png">
+                            Email Me
+                        </div>
+                        <div class="sidebar-action">
+                            <a href="https://www.linkedin.com/in/edoardo-ababei-058b7326b/" 
+                             target="_blank" 
+                             rel="noopener noreferrer" 
+                             class="sidebar-action">
+                                <img src="https://win98icons.alexmeub.com/icons/png/ac_plug-0.png">
+                                LinkedIn Me
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-box">
+                    <div class="sidebar-header">
+                        Details <span class="sidebar-toggle">^</span>
+                    </div>
+                    <div class="sidebar-body" style="color: black;">
+                        <b>Blog:</b><br>
+                        asap<br><br>
+                        <b>Date Modified:</b><br>
+                        5 mins ago<br><br>
+                        <b>Size:</b> 1.2 MB<br>
+                        <b>Author:</b> Edoardo
+                    </div>
+                </div>
+
+                <div class="sidebar-box">
+                    <div class="sidebar-header">
+                        Certifications <span class="sidebar-toggle">^</span>
+                    </div>
+                    <div class="sidebar-body" style="color: black;">
+                        <b>Working on a DevOps one</b><br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-pane">
+
+               <div id="mobile-details-bar">
+                    <b>File Tasks:</b> 
+                    <a href="./assets/CV_Edoardo_Ababei.pdf" download="CV_Edoardo_Ababei.pdf">Download CV</a> | 
+                    <a href="#" onclick="openWindow('contact-popup')">Email Me</a>
+                </div>
+
+                <div class="profile-header">
+                    <img src="https://preview.redd.it/do-you-have-goofy-pics-of-your-pretty-cats-v0-51t4e3gnyvib1.jpg?auto=webp&s=27b628d946d585f415de91edb250544ccff0d02c  " alt="Edoardo" class="profile-pic">
+                    <div class="profile-info">
+                        <h1>Edoardo Ababei</h1>
+                        <h2>Software Developer | 22 Years Old</h2>
+                    </div>
+                </div>
+
+                <div class="content-area">
+
+                    <div class="section-title"> </div>
+                        <p class="text-block"> 
+                            Hi, I’m Edoardo currently in Lugano, Switzerland. I hate text generated by LLMs. I’m passionate about technology, finance, books, and cuisine. In my free time, when I’m not working/studying/cooking/at the gym, I enjoy the people I spend my time with. 
+                            <br><br>
+                            To see the corporate description & the full profile, if you want to read it, download the CV on the left. </p>
+                    <div class="section-title">Education </div>
+                    
+                    <div class="job-card" style="cursor: default;">
+                        <img src="https://win98icons.alexmeub.com/icons/png/certificate_seal.png" class="folder-icon">
+                        <div class="job-info">
+                            <h3>USI (UNIVERSITÀ DELLA SVIZZERA ITALIANA)</h3>
+                            <span class="date">Sep 2022 - Jun 2025</span>
+                            <span style="font-size: 11px; display:block;">Bachelor in Informatics</span>
+                            <span style="font-size: 10px; color: #555;">Thesis: "In-depth analysis of the WebRTC protocol"</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" style="cursor: default;">
+                        <img src="https://win98icons.alexmeub.com/icons/png/certificate_seal.png" class="folder-icon">
+                        <div class="job-info">
+                            <h3>I.I.S. G. VALLAURI</h3>
+                            <span style="font-size: 11px; display:block;">Technical Diploma IT and Telecommunications</span>
+                        </div>
+                    </div>
+
+                    <div class="section-title">Work Experience</div>
+
+                    <div class="job-card" onclick="openWindow('teq-popup')">
+                        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" class="folder-icon">
+                        <div class="job-info">
+                            <h3>TEQ SA</h3>
+                            <span class="date">Jun 2025 - Present</span>
+                            <span class="view-link">Click for details...</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="openWindow('webchip-popup')">
+                        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" class="folder-icon">
+                        <div class="job-info">
+                            <h3>WEBCHIP (Freelance)</h3>
+                            <span class="date">Dec 2021 - May 2024</span>
+                            <span class="view-link">Click for details...</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="openWindow('oikos-popup')">
+                        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" class="folder-icon">
+                        <div class="job-info">
+                            <h3>OIKOS ENGINEERING</h3>
+                            <span class="date">Jun 2021 - Jan 2023</span>
+                            <span class="view-link">Click for details...</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="openWindow('almec-popup')">
+                        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" class="folder-icon">
+                        <div class="job-info">
+                            <h3>ALMEC S.P.A (Internship)</h3>
+                            <span class="date">Mar 2022 - Jun 2022</span>
+                            <span class="view-link">Click for details...</span>
+                        </div>
+                    </div>
+
+                    <div class="section-title">Skills & Technologies</div>
+                    <table class="xp-table">
+                        <tr>
+                            <td class="xp-head">Languages</td>
+                            <td>Java, TypeScript, Python, HTML, CSS</td>
+                        </tr>
+                        <tr>
+                            <td class="xp-head">Frameworks</td>
+                            <td>React, Angular</td>
+                        </tr>
+                        <tr>
+                            <td class="xp-head">Backend</td>
+                            <td>Node, SpringBoot, Flask</td>
+                        </tr>
+                        <tr>
+                            <td class="xp-head">DevOps</td>
+                            <td>GitLab, Docker, Kubernetes, CI/CD</td>
+                        </tr>
+                        <tr>
+                            <td class="xp-head">Databases</td>
+                            <td>MongoDB, PostgreSQL, Redis</td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="teq-popup" class="window popup" style="top: 100px; left: 150px;">
+        <div class="title-bar" onmousedown="startDrag(event, 'teq-popup')">
+            <span>TEQ SA</span> <div class="title-bar-controls"><button onclick="closeWindow('teq-popup')">X</button></div>
+        </div>
+        <div class="popup-body">
+            <b>Software Developer</b>
+            <ul>
+                <li>Software management for control panels on pharmaceutical machines.</li>
+                <li>Code base in Java and TypeScript.</li>
+                <li>Python tools for code deployment.</li>
+                <li>Gitlab & Docker to handle to developement process</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="webchip-popup" class="window popup" style="top: 130px; left: 180px;">
+        <div class="title-bar" onmousedown="startDrag(event, 'webchip-popup')">
+            <span>WEBCHIP</span> <div class="title-bar-controls"><button onclick="closeWindow('webchip-popup')">X</button></div>
+        </div>
+        <div class="popup-body">
+            <b>Freelance Web Developer</b>
+            <ul>
+                <li>Custom websites using HTML, CSS, JavaScript.</li>
+                <li>Main client contact point.</li>
+                <li><a href="https://edoardo-aba.github.io/websites/" style="text-decoration: none;" target="_blank">Archive</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="oikos-popup" class="window popup" style="top: 160px; left: 210px;">
+        <div class="title-bar" onmousedown="startDrag(event, 'oikos-popup')">
+            <span>OIKOS</span> <div class="title-bar-controls"><button onclick="closeWindow('oikos-popup')">X</button></div>
+        </div>
+        <div class="popup-body">
+            <b>Software Developer</b>
+            <ul>
+                <li>Angular portals for municipalities.</li>
+                <li>Streamlined bureaucratic processes through digital automation.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="almec-popup" class="window popup" style="top: 190px; left: 230px;">
+        <div class="title-bar" onmousedown="startDrag(event, 'almec-popup')">
+            <span>ALMEC S.P.A</span> <div class="title-bar-controls"><button onclick="closeWindow('almec-popup')">X</button></div>
+        </div>
+        <div class="popup-body">
+            <b>Full-Stack Developer (Internship)</b>
+            <ul>
+                <li>Machine monitoring solution integrating modems.</li>
+                <li>React dashboard and Node backend.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="contact-popup" class="window popup" style="top: 200px; left: 250px; width: 300px;">
+        <div class="title-bar" onmousedown="startDrag(event, 'contact-popup')">
+            <span>Contact Card</span> <div class="title-bar-controls"><button onclick="closeWindow('contact-popup')">X</button></div>
+        </div>
+        <div class="popup-body" style="text-align: center;">
+             <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png">
+             <p>edoardoababei2003@gmail.com<br>+41 765172437</p>
+             <button onclick="closeWindow('contact-popup')">Close</button>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="start-btn">
+            <img src="./assets/windows-xp.png">
+            start
+        </div>
+        <div class="clock" id="clock">12:00 PM</div>
+    </div>
+
+    <script>
+        // INIT
+        window.onload = function() {
+            const w = window.innerWidth;
+            const mainWin = document.getElementById('main-cv-window');
+            mainWin.style.display = 'flex';
+
+            if(w > 768) {
+                // Desktop Center
+                mainWin.style.left = (w/2 - 450) + 'px';
+                mainWin.style.top = '50px';
+            }
+            // Mobile handled by CSS
+        };
+
+        // CLOCK
+        function updateClock() {
+            const now = new Date();
+            let h = now.getHours();
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            document.getElementById('clock').textContent = `${h}:${m} ${ampm}`;
+        }
+        setInterval(updateClock, 1000); updateClock();
+
+        // WINDOW LOGIC
+        let z = 100;
+        function openWindow(id) {
+            const w = document.getElementById(id);
+            w.style.display = 'flex';
+            w.style.zIndex = ++z;
+        }
+        function closeWindow(id) { document.getElementById(id).style.display = 'none'; }
+
+        // DRAG
+        let dragItem = null;
+        let diffX = 0, diffY = 0;
+
+        function startDrag(e, id) {
+            // Prevent dragging on mobile to avoid breaking layout
+            if(window.innerWidth <= 768) return;
+            if(e.button !== 0) return;
+
+            dragItem = document.getElementById(id);
+            dragItem.style.zIndex = ++z;
+            const rect = dragItem.getBoundingClientRect();
+            diffX = e.clientX - rect.left;
+            diffY = e.clientY - rect.top;
+            dragItem.style.margin = '0';
+
+            document.addEventListener('mousemove', onDrag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+
+        function onDrag(e) {
+            if(!dragItem) return;
+            e.preventDefault();
+            dragItem.style.left = (e.clientX - diffX) + 'px';
+            dragItem.style.top = (e.clientY - diffY) + 'px';
+        }
+
+        function stopDrag() {
+            dragItem = null;
+            document.removeEventListener('mousemove', onDrag);
+            document.removeEventListener('mouseup', stopDrag);
+        }
+    </script>
+</body>
+</html>
